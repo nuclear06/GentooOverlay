@@ -1,0 +1,15 @@
+BDEPEND=app-arch/unzip
+DEFINED_PHASES=install postinst preinst
+DEPEND=acct-group/android
+DESCRIPTION=Google's Android SDK
+EAPI=8
+HOMEPAGE=https://developer.android.com/tools https://developer.android.com/studio#command-tools
+INHERIT=greadme
+KEYWORDS=amd64
+LICENSE=android
+RDEPEND=acct-group/android virtual/jre
+RESTRICT=bindist mirror
+SLOT=0
+SRC_URI=https://dl.google.com/android/repository/commandlinetools-linux-13114758_latest.zip
+_eclasses_=greadme	a8eea52f1e4068ec2222c2cb3ab7417e
+_md5_=023240347ce3e117216b6039856afb73
