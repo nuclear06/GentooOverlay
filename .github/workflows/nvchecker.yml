@@ -105,7 +105,11 @@ jobs:
 
   issues-bumper:
     needs: nvchecker
+    if: needs.nvchecker.outputs.nvcmp != '[]'
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write
     strategy:
       matrix:
         include: ${{ fromJson(needs.nvchecker.outputs.nvcmp) }}
