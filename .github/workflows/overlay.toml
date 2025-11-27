@@ -1,0 +1,10 @@
+[__config__]
+oldver = "old_ver.json"
+newver = "new_ver.json"
+
+
+["sys-apps/earlyoom"]
+source = "github"
+github = "rfjakob/earlyoom"
+use_latest_release = true
+prefix = 'v'
