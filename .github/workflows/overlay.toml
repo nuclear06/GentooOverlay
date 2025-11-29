@@ -8,3 +8,9 @@ source = "github"
 github = "rfjakob/earlyoom"
 use_latest_release = true
 prefix = 'v'
+
+["dev-util/codeberg-cli"]
+source = "gitea"
+host = "codeberg.org"
+use_latest_release = true
+prefix = 'v'
