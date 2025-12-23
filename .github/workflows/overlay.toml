@@ -14,3 +14,9 @@ source = "gitea"
 host = "codeberg.org"
 use_latest_release = true
 prefix = 'v'
+
+["net-analyzer/snitch"]
+source = "github"
+host = "karol-broda/snitch"
+use_latest_release = true
+prefix = 'v'
