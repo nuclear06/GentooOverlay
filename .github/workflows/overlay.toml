@@ -22,7 +22,7 @@ github = "karol-broda/snitch"
 use_latest_release = true
 prefix = 'v'
 
-["mvdan/sh"]
+["dev-util/shfmt"]
 source = "github"
 github = "mvdan/sh"
 use_latest_release = true

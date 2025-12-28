@@ -50,7 +50,7 @@ jobs:
         # eselect
         echo "::group::eselect repository add and sync"
         repo_name=$(cat profiles/repo_name)
-        eselect repository add "$repo_name" git "file://${PWD}"
+        eselect repository add "$repo_name" git "file://${PWD}" || true
         emerge --sync "$repo_name"
         egencache --jobs=$(nproc) --update --repo "$repo_name" &> /dev/null
         eix-update
@@ -81,10 +81,11 @@ jobs:
 
     - name: install depends
       run: |
-        pip install nvchecker jq
+        pip install nvchecker jq --break-system-packages
 
     - name: echo pkgs
       run: |
+        echo 'eix pkgs:'
         echo '${{ needs.eix.outputs.pkgs }}'
 
     - name: nvchecker
@@ -105,21 +106,20 @@ jobs:
 
   issues-bumper:
     needs: nvchecker
-    if: needs.nvchecker.outputs.nvcmp != '[]'
     runs-on: ubuntu-latest
     permissions:
       contents: read
       issues: write
     strategy:
       matrix:
-        include: ${{ fromJson(needs.nvchecker.outputs.nvcmp) }}
+        include: ${{ fromJson(needs.nvchecker.outputs.nvcmp || '[]') }}
     steps:
     - name: Checkout bumpbot
       uses: actions/checkout@v6
       with:
         repository: 'gentoo-zh-drafts/bumpbot'
 
-    - name: Checkout gentoo-zh
+    - name: Checkout saniter
       uses: actions/checkout@v6
       with:
         path: 'saniter'
