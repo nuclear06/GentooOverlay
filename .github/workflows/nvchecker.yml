@@ -6,7 +6,7 @@ on:
       - master
   workflow_dispatch:
   schedule:
-    - cron: '0 08 * * *'
+    - cron: "0 08 * * *"
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -21,54 +21,54 @@ jobs:
     outputs:
       pkgs: ${{ steps.eix.outputs.pkgs }}
     steps:
-    - name: sync gentoo main tree
-      run: |
-        emerge-webrsync
+      - name: sync gentoo main tree
+        run: |
+          emerge-webrsync
 
-    - name: cat binrepos
-      run: |
-        cat /etc/portage/binrepos.conf/gentoobinhost.conf
+      - name: cat binrepos
+        run: |
+          cat /etc/portage/binrepos.conf/gentoobinhost.conf
 
-    - name: setup features
-      run: |
-        echo 'FEATURES="getbinpkg"' >> /etc/portage/make.conf
-        getuto
+      - name: setup features
+        run: |
+          echo 'FEATURES="getbinpkg"' >> /etc/portage/make.conf
+          getuto
 
-    - name: install depends
-      run: |
-        emerge --verbose --quiet --jobs $(nproc) --autounmask y --autounmask-continue y \
-        app-eselect/eselect-repository \
-        app-portage/eix \
-        dev-vcs/git
+      - name: install depends
+        run: |
+          emerge --verbose --quiet --jobs $(nproc) --autounmask y --autounmask-continue y \
+          app-eselect/eselect-repository \
+          app-portage/eix \
+          dev-vcs/git
 
-    - name: checkout
-      uses: actions/checkout@v6
+      - name: checkout
+        uses: actions/checkout@v6
 
-    - name: eix
-      id: eix
-      run: |
-        # eselect
-        echo "::group::eselect repository add and sync"
-        repo_name=$(cat profiles/repo_name)
-        eselect repository add "$repo_name" git "file://${PWD}" || true
-        emerge --sync "$repo_name"
-        egencache --jobs=$(nproc) --update --repo "$repo_name" &> /dev/null
-        eix-update
-        echo "::endgroup::"
-        # eix
-        echo "::group::eix search packages"
-        pkgs=$(ACCEPT_LICENSE="*" ACCEPT_KEYWORDS="~amd64 ~arm64 ~loong ~riscv" EIX_LIMIT=0 NAMEVERSION="<category>/<name>-<version>\n" eix --pure-packages --in-overlay "$repo_name" --format '<bestversion:NAMEVERSION>')
-        pkgs=$(qatom -F "\"%{CATEGORY}/%{PN}\": \"%{PV}\"," $pkgs) # remove revision
-        pkgs="{ ${pkgs::-1} }"
-        echo $pkgs
-        # use multiine string:
-        # https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-commands#setting-an-output-parameter
-        {
-          echo 'pkgs<<EOF'
-          echo "$pkgs"
-          echo 'EOF'
-        } >> "$GITHUB_OUTPUT"
-        echo "::endgroup::"
+      - name: eix
+        id: eix
+        run: |
+          # eselect
+          echo "::group::eselect repository add and sync"
+          repo_name=$(cat profiles/repo_name)
+          eselect repository add "$repo_name" git "file://${PWD}" || true
+          emerge --sync "$repo_name"
+          egencache --jobs=$(nproc) --update --repo "$repo_name" &> /dev/null
+          eix-update
+          echo "::endgroup::"
+          # eix
+          echo "::group::eix search packages"
+          pkgs=$(ACCEPT_LICENSE="*" ACCEPT_KEYWORDS="~amd64 ~arm64 ~loong ~riscv" EIX_LIMIT=0 NAMEVERSION="<category>/<name>-<version>\n" eix --pure-packages --in-overlay "$repo_name" --format '<bestversion:NAMEVERSION>')
+          pkgs=$(qatom -F "\"%{CATEGORY}/%{PN}\": \"%{PV}\"," $pkgs) # remove revision
+          pkgs="{ ${pkgs::-1} }"
+          echo $pkgs
+          # use multiine string:
+          # https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-commands#setting-an-output-parameter
+          {
+            echo 'pkgs<<EOF'
+            echo "$pkgs"
+            echo 'EOF'
+          } >> "$GITHUB_OUTPUT"
+          echo "::endgroup::"
 
   nvchecker:
     needs: eix
@@ -76,36 +76,37 @@ jobs:
     outputs:
       nvcmp: ${{ steps.nvchecker.outputs.nvcmp }}
     steps:
-    - name: checkout
-      uses: actions/checkout@v6
+      - name: checkout
+        uses: actions/checkout@v6
 
-    - name: install depends
-      run: |
-        pip install nvchecker jq --break-system-packages
+      - name: install depends
+        run: |
+          pip install nvchecker jq --break-system-packages
 
-    - name: echo pkgs
-      run: |
-        echo 'eix pkgs:'
-        echo '${{ needs.eix.outputs.pkgs }}'
+      - name: echo pkgs
+        run: |
+          echo 'eix pkgs:'
+          echo '${{ needs.eix.outputs.pkgs }}'
 
-    - name: nvchecker
-      id: nvchecker
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: |
-        echo "::group::nvchecker"
-        cd .github/workflows/
-        echo '${{ needs.eix.outputs.pkgs }}' > old_ver.json
-        echo -e "[keys]\ngithub = \"${{ secrets.GITHUB_TOKEN }}\"" > keyfile.toml
-        nvchecker --file overlay.toml --keyfile keyfile.toml
-        echo "::endgroup::"
+      - name: nvchecker
+        id: nvchecker
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "::group::nvchecker"
+          cd .github/workflows/
+          echo '${{ needs.eix.outputs.pkgs }}' > old_ver.json
+          echo -e "[keys]\ngithub = \"${{ secrets.GITHUB_TOKEN }}\"" > keyfile.toml
+          nvchecker --file overlay.toml --keyfile keyfile.toml
+          echo "::endgroup::"
 
-        echo "::group::nvcmp"
-        echo "nvcmp=$(nvcmp --file overlay.toml --json --newer | jq 'map({name, newver, oldver})' | jq -c .)" >> $GITHUB_OUTPUT
-        echo "::endgroup::"
+          echo "::group::nvcmp"
+          echo "nvcmp=$(nvcmp --file overlay.toml --json --newer | jq 'map({name, newver, oldver})' | jq -c .)" >> $GITHUB_OUTPUT
+          echo "::endgroup::"
 
   issues-bumper:
     needs: nvchecker
+    if: needs.nvchecker.outputs.nvcmp != '[]'
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -114,22 +115,22 @@ jobs:
       matrix:
         include: ${{ fromJson(needs.nvchecker.outputs.nvcmp || '[]') }}
     steps:
-    - name: Checkout bumpbot
-      uses: actions/checkout@v6
-      with:
-        repository: 'gentoo-zh-drafts/bumpbot'
+      - name: Checkout bumpbot
+        uses: actions/checkout@v6
+        with:
+          repository: "gentoo-zh-drafts/bumpbot"
 
-    - name: Checkout saniter
-      uses: actions/checkout@v6
-      with:
-        path: 'saniter'
+      - name: Checkout saniter
+        uses: actions/checkout@v6
+        with:
+          path: "saniter"
 
-    - name: update issues
-      timeout-minutes: 1
-      env:
-        name: ${{ matrix.name }}
-        newver: ${{ matrix.newver }}
-        oldver: ${{ matrix.oldver }}
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: |
-        go run . --file saniter/.github/workflows/overlay.toml --name "$name" --newver "$newver" --oldver "$oldver"
+      - name: update issues
+        timeout-minutes: 1
+        env:
+          name: ${{ matrix.name }}
+          newver: ${{ matrix.newver }}
+          oldver: ${{ matrix.oldver }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          go run . --file saniter/.github/workflows/overlay.toml --name "$name" --newver "$newver" --oldver "$oldver"
