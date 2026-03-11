@@ -27,3 +27,10 @@ source = "github"
 github = "mvdan/sh"
 use_latest_release = true
 prefix = 'v'
+
+["app-misc/ente-auth"]
+source = "github"
+github = "ente-io/ente"
+use_max_tag = true
+include_regex = "^auth-.*"
+prefix = 'auth-v'
