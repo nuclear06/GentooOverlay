@@ -1,0 +1,13 @@
+BDEPEND=man? ( virtual/pandoc ) virtual/pkgconfig
+DEFINED_PHASES=compile install
+DESCRIPTION=Early OOM Daemon for Linux
+EAPI=8
+HOMEPAGE=https://github.com/rfjakob/earlyoom
+INHERIT=go-module systemd toolchain-funcs
+IUSE=man
+KEYWORDS=~amd64 ~x86
+LICENSE=MIT
+SLOT=0
+SRC_URI=https://github.com/rfjakob/earlyoom/archive/refs/tags/v1.9.0.tar.gz -> earlyoom-1.9.0.tar.gz
+_eclasses_=multiprocessing	1e32df7deee68372153dca65f4a7c21f	toolchain-funcs	8a2c298bde71ecf3f452dd9e67c94369	flag-o-matic	ed1eda86c8f746a2a75f7f9f7478f5f4	go-env	0e2babf96e7d0b045fc07ad199eb2399	go-module	2a164b5dbe5ba61e90d7985a433dde70	systemd	a964c0cbe818b5729da1dbfcee5be861
+_md5_=d08fdd92d1fcb0db285cbe80af3f552a
