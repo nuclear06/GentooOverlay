@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>saniter.dev@outlook.com</email>
+		<name>saniter</name>
+	</maintainer>
+	<description>early oom daemon for linux.</description>
+</pkgmetadata>

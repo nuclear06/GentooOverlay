@@ -9,12 +9,13 @@ github = "rfjakob/earlyoom"
 use_latest_release = true
 prefix = 'v'
 
-["dev-util/codeberg-cli"]
-source = "gitea"
-gitea = "Aviac/codeberg-cli"
-host = "codeberg.org"
-use_latest_release = true
-prefix = 'v'
+# public archived
+# ["dev-util/codeberg-cli"]
+# source = "gitea"
+# gitea = "Aviac/codeberg-cli"
+# host = "codeberg.org"
+# use_latest_release = true
+# prefix = 'v'
 
 ["net-analyzer/snitch"]
 source = "github"

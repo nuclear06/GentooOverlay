@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>saniter.dev@outlook.com</email>
+		<name>saniter</name>
+	</maintainer>
+	<description>A simple terminal UI for both docker and docker-compose, written in Go with the gocui library.</description>
+</pkgmetadata>
