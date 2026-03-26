@@ -1,0 +1,13 @@
+BDEPEND=man? ( app-text/scdoc ) >=dev-lang/go-1.20:= app-arch/unzip
+DEFINED_PHASES=compile install test unpack
+DESCRIPTION=A shell parser, formatter, and interpreter with bash support
+EAPI=8
+HOMEPAGE=https://github.com/mvdan/sh
+INHERIT=edo go-module
+IUSE=+man
+KEYWORDS=~amd64 ~x86
+LICENSE=BSD
+SLOT=0
+SRC_URI=https://github.com/mvdan/sh/archive/v3.13.0.tar.gz -> sh-3.13.0.tar.gz https://github.com/nuclear06/gentoo-deps/releases/download/shfmt-3.13.0/shfmt-3.13.0-deps.tar.xz
+_eclasses_=edo	a5e294016aa84979fcb2459749eb80b2	toolchain-funcs	5195689ff6a73b0e789acfa09d4fbcb9	flag-o-matic	fd3558f73f6503093adee69adf41020d	multiprocessing	c4ce7cd4e666b59ad4165ec2de032d09	sysroot	ba2e3d2f7daad91fdef9350dc789d87f	go-env	17d0469a6d8dc4805a1305ded9af22db	go-module	1333f0eba2be11d0afeadce17a07af4d
+_md5_=3fc7ba44fd8484712dba2da643e75951
