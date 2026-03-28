@@ -61,8 +61,8 @@ src_compile() {
 
 src_install() {
   dobin "$(cargo_target_dir)"/awww{,-daemon}
-  dosym swww /usr/bin/${PN}
-  dosym swww-daemon /usr/bin/${PN}-daemon
+  dosym awww /usr/bin/swww
+  dosym awww-daemon /usr/bin/swww-daemon
 
   doman doc/generated/*.1
 
