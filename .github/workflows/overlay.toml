@@ -35,3 +35,10 @@ github = "ente-io/ente"
 use_max_tag = true
 include_regex = "^auth-.*"
 prefix = 'auth-v'
+
+["gui-apps/awww"]
+source = "gitea"
+gitea = "LGFae/awww"
+host = "codeberg.org"
+use_latest_release = true
+prefix = 'v'
