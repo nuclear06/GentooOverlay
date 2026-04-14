@@ -25,10 +25,6 @@ jobs:
         run: |
           emerge-webrsync
 
-      - name: cat binrepos
-        run: |
-          cat /etc/portage/binrepos.conf/gentoobinhost.conf
-
       - name: setup features
         run: |
           echo 'FEATURES="getbinpkg"' >> /etc/portage/make.conf
@@ -132,5 +128,7 @@ jobs:
           newver: ${{ matrix.newver }}
           oldver: ${{ matrix.oldver }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GENTOO_DEPS_REPOSITORY: ${{ vars.GENTOO_DEPS_REPOSITORY }}
+          GENTOO_DEPS_GITHUB_TOKEN: ${{ secrets.GENTOO_DEPS_GITHUB_TOKEN }}
         run: |
           go run . --file saniter/.github/workflows/overlay.toml --name "$name" --newver "$newver" --oldver "$oldver"

@@ -8,6 +8,8 @@ source = "github"
 github = "rfjakob/earlyoom"
 use_latest_release = true
 prefix = 'v'
+gentoo_deps_disabled = true
+# no external dependencies, no gentoo-deps tarball generation needed.
 
 # public archived
 # ["dev-util/codeberg-cli"]
@@ -22,12 +24,18 @@ source = "github"
 github = "karol-broda/snitch"
 use_latest_release = true
 prefix = 'v'
+gentoo_deps_lang = "golang"
+gentoo_deps_tag = "v{{newver}}"
+gentoo_deps_p = "snitch-{{newver}}"
 
 ["dev-util/shfmt"]
 source = "github"
 github = "mvdan/sh"
 use_latest_release = true
 prefix = 'v'
+gentoo_deps_lang = "golang"
+gentoo_deps_tag = "v{{newver}}"
+gentoo_deps_p = "shfmt-{{newver}}"
 
 ["app-misc/ente-auth"]
 source = "github"
@@ -35,6 +43,8 @@ github = "ente-io/ente"
 use_max_tag = true
 include_regex = "^auth-.*"
 prefix = 'auth-v'
+gentoo_deps_disabled = true
+# Binary AppImage package, no gentoo-deps tarball generation needed.
 
 ["gui-apps/awww"]
 source = "gitea"
@@ -42,3 +52,7 @@ gitea = "LGFae/awww"
 host = "codeberg.org"
 use_latest_release = true
 prefix = 'v'
+gentoo_deps_lang = "rust"
+gentoo_deps_source_url = "https://codeberg.org/LGFae/awww.git"
+gentoo_deps_tag = "v{{newver}}"
+gentoo_deps_p = "awww-{{newver}}"
