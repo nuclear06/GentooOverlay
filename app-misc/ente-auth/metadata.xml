@@ -5,5 +5,7 @@
 		<email>saniter.dev@outlook.com</email>
 		<name>saniter</name>
 	</maintainer>
-	<description>open source end-to-end encrypted authenticator app.</description>
+	<upstream>
+		<remote-id type="github">ente-io/ente</remote-id>
+	</upstream>
 </pkgmetadata>

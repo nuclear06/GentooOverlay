@@ -26,42 +26,45 @@ RDEPEND="
 	net-print/cups
 	x11-libs/libXScrnSaver
 "
+BDEPEND="
+	tgreen? ( app-arch/unzip )
+"
 
 QA_PREBUILT="*"
 
 src_unpack() {
-  # Unpack the main deb file
-  unpack typora_${PV}_amd64.deb
-  unpack ./data.tar.xz
+	# Unpack the main deb file
+	unpack typora_${PV}_amd64.deb
+	unpack ./data.tar.xz
 
-  # Unpack the patch file if tgreen USE flag is enabled
-  if use tgreen; then
-    unpack app_asar_file_v${PV}.zip
-  fi
+	# Unpack the patch file if tgreen USE flag is enabled
+	if use tgreen; then
+		unpack app_asar_file_v${PV}.zip
+	fi
 }
 
 src_install() {
-  mv "${S}/usr" "${D}" || die
+	mv "${S}/usr" "${D}" || die
 
-  # fix fcitx5 input method issue on wayland
-  if use wayland; then
-    rm "${D}/usr/bin/typora" || die
-    cat > "${T}/typora" <<EOF
+	# fix fcitx5 input method issue on wayland
+	if use wayland; then
+		rm "${D}/usr/bin/typora" || die
+		cat > "${T}/typora" <<EOF
 #!/bin/sh
 exec /usr/share/typora/Typora --enable-features=UseOzonePlatform --ozone-platform=wayland --enable-wayland-ime "\$@"
 EOF
-    dobin "${T}/typora"
-  fi
+		dobin "${T}/typora"
+	fi
 
-  if use tgreen; then
-    if [[ -f "${S}/app.asar" ]]; then
-      cp "${S}/app.asar" "${D}/usr/share/typora/resources/" || die "Failed to install patched app.asar"
-    else
-      die "Patched app.asar file not found"
-    fi
-  fi
+	if use tgreen; then
+		if [[ -f "${S}/app.asar" ]]; then
+			cp "${S}/app.asar" "${D}/usr/share/typora/resources/" || die "Failed to install patched app.asar"
+		else
+			die "Patched app.asar file not found"
+		fi
+	fi
 
-  pushd "${D}/usr/share/doc" >/dev/null || die
-  mv ${PN} ${P} || die
-  popd >/dev/null || die
+	pushd "${D}/usr/share/doc" >/dev/null || die
+	mv ${PN} ${P} || die
+	popd >/dev/null || die
 }

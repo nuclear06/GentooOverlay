@@ -10,7 +10,6 @@ inherit cargo git-r3
 DESCRIPTION="CLI Tool for codeberg similar to gh and glab"
 HOMEPAGE="https://codeberg.org/Aviac/codeberg-cli"
 EGIT_REPO_URI="https://codeberg.org/Aviac/codeberg-cli.git"
-SRC_URI=""
 
 LICENSE="AGPL-3+"
 # Dependent crate licenses

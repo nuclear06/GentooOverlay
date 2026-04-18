@@ -10,14 +10,14 @@ inherit cargo shell-completion
 DESCRIPTION="Efficient animated wallpaper daemon for wayland, controlled at runtime"
 HOMEPAGE="https://codeberg.org/LGFae/awww"
 if [[ ${PV} == *9999* ]]; then
-  inherit git-r3
-  EGIT_REPO_URI="https://codeberg.org/LGFae/${PN}.git"
+	inherit git-r3
+	EGIT_REPO_URI="https://codeberg.org/LGFae/${PN}.git"
 else
-  SRC_URI="
+	SRC_URI="
 	https://codeberg.org/LGFae/${PN}/archive/refs/tags/v${PV}.tar.gz -> ${P}.tar.gz
-	https://github.com/nuclear06/gentoo-deps/releases/download/${P}/${P}-crates.tar.xz -> ${P}-crates.tar.xz
+	https://github.com/nuclear06/gentoo-deps/releases/download/${P}/${P}-crates.tar.xz
 	"
-  KEYWORDS="~amd64"
+	KEYWORDS="~amd64"
 fi
 
 S="${WORKDIR}/${PN}"
@@ -46,33 +46,33 @@ QA_FLAGS_IGNORED="
 "
 
 src_unpack() {
-  if [[ "${PV}" == *9999* ]]; then
-    git-r3_src_unpack
-    cargo_live_src_unpack
-  else
-    cargo_src_unpack
-  fi
+	if [[ "${PV}" == *9999* ]]; then
+		git-r3_src_unpack
+		cargo_live_src_unpack
+	else
+		cargo_src_unpack
+	fi
 }
 
 src_compile() {
-  cargo_src_compile
-  ./doc/gen.sh || die # generate man pages
+	cargo_src_compile
+	./doc/gen.sh || die # generate man pages
 }
 
 src_install() {
-  dobin "$(cargo_target_dir)"/awww{,-daemon}
-  dosym awww /usr/bin/swww
-  dosym awww-daemon /usr/bin/swww-daemon
+	dobin "$(cargo_target_dir)"/awww{,-daemon}
+	dosym awww /usr/bin/swww
+	dosym awww-daemon /usr/bin/swww-daemon
 
-  doman doc/generated/*.1
+	doman doc/generated/*.1
 
-  dodoc README.md CHANGELOG.md
-  newbashcomp completions/awww.bash swww
-  dofishcomp completions/awww.fish
-  dozshcomp completions/_awww
+	dodoc README.md CHANGELOG.md
+	newbashcomp completions/awww.bash swww
+	dofishcomp completions/awww.fish
+	dozshcomp completions/_awww
 }
 
 pkg_postinst() {
-  ewarn "The project has been renamed from swww to awww"
-  ewarn "This ebuild installs symlinks to ease the transition"
+	ewarn "The project has been renamed from swww to awww"
+	ewarn "This ebuild installs symlinks to ease the transition"
 }

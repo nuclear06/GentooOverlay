@@ -5,4 +5,7 @@
 		<email>saniter.dev@outlook.com</email>
 		<name>saniter</name>
 	</maintainer>
+	<upstream>
+		<remote-id type="codeberg">Aviac/codeberg-cli</remote-id>
+	</upstream>
 </pkgmetadata>

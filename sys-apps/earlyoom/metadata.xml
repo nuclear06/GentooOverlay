@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-	<maintainer type="person">
-		<email>saniter.dev@outlook.com</email>
-		<name>saniter</name>
-	</maintainer>
-	<description>early oom daemon for linux.</description>
+  <maintainer type="person">
+    <email>saniter.dev@outlook.com</email>
+    <name>saniter</name>
+  </maintainer>
+  <longdescription lang="en">
+    The oom-killer generally has a bad reputation among Linux users. One may have to sit in front of an unresponsive system, listening to the grinding disk for minutes, and press the reset button to quickly get back to what one was doing after running out of patience.
+    Earlyoom checks the amount of available memory and free swap up to 10 times a second (less often if there is a lot of free memory). If both memory and swap are below 10%, it will kill the largest process (highest oom_score). The percentage value is configurable via command line arguments.
+    If there is a failure when trying to kill a process, earlyoom sleeps for 1 second to limit log spam due to recurring errors.
+  </longdescription>
+  <upstream>
+    <remote-id type="github">rfjakob/earlyoom</remote-id>
+  </upstream>
 </pkgmetadata>

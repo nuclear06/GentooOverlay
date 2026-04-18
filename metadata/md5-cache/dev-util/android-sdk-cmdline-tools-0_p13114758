@@ -11,5 +11,5 @@ RDEPEND=acct-group/android virtual/jre
 RESTRICT=bindist mirror
 SLOT=0
 SRC_URI=https://dl.google.com/android/repository/commandlinetools-linux-13114758_latest.zip
-_eclasses_=greadme	a8eea52f1e4068ec2222c2cb3ab7417e
-_md5_=023240347ce3e117216b6039856afb73
+_eclasses_=eapi9-pipestatus	d2c134036ac31c3085aebc9147f572bd	greadme	074e3d831f92e9b73038f05bb76c9548
+_md5_=ab688e5932e866f834c5203132a1bdf6

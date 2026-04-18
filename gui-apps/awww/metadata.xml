@@ -5,8 +5,8 @@
 		<email>saniter.dev@outlook.com</email>
 		<name>saniter</name>
 	</maintainer>
-  <upstream>
-      <remote-id type="codeberg">LGFae/awww</remote-id>
-      <bugs-to>https://codeberg.org/LGFae/awww/issues</bugs-to>
-  </upstream>
+	<upstream>
+		<remote-id type="codeberg">LGFae/awww</remote-id>
+		<bugs-to>https://codeberg.org/LGFae/awww/issues</bugs-to>
+	</upstream>
 </pkgmetadata>

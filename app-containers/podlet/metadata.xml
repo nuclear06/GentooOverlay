@@ -5,5 +5,7 @@
 		<email>saniter.dev@outlook.com</email>
 		<name>saniter</name>
 	</maintainer>
-	<description>Generate Podman Quadlet files from a Podman command, compose file, or existing object.</description>
+	<upstream>
+		<remote-id type="github">containers/podlet</remote-id>
+	</upstream>
 </pkgmetadata>

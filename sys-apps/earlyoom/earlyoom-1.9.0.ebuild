@@ -3,18 +3,17 @@
 
 EAPI=8
 
-GO_OPTIONAL=1
-inherit go-module systemd toolchain-funcs
+inherit systemd toolchain-funcs
 
 DESCRIPTION="Early OOM Daemon for Linux"
 HOMEPAGE="https://github.com/rfjakob/earlyoom"
 
 if [[ ${PV} == 9999 ]]; then
-  EGIT_REPO_URI="https://github.com/rfjakob/earlyoom.git"
-  inherit git-r3
+	EGIT_REPO_URI="https://github.com/rfjakob/earlyoom.git"
+	inherit git-r3
 else
-  SRC_URI="https://github.com/rfjakob/earlyoom/archive/refs/tags/v${PV}.tar.gz -> ${P}.tar.gz"
-  KEYWORDS="~amd64 ~x86"
+	SRC_URI="https://github.com/rfjakob/earlyoom/archive/refs/tags/v${PV}.tar.gz -> ${P}.tar.gz"
+	KEYWORDS="~amd64 ~x86"
 fi
 
 LICENSE="MIT"
@@ -26,26 +25,26 @@ BDEPEND="
 "
 
 src_compile() {
-  tc-export CC
+	tc-export CC
 
-  emake \
-    PREFIX="${EPREFIX}/usr" \
-    VERSION="v${PV}" \
-    SYSTEMDUNITDIR="$(systemd_get_systemunitdir)" \
-    $(usev man 'earlyoom.1')
+	emake \
+		PREFIX="${EPREFIX}/usr" \
+		VERSION="v${PV}" \
+		SYSTEMDUNITDIR="$(systemd_get_systemunitdir)" \
+		$(usev man 'earlyoom.1')
 }
 
 src_install() {
-  dobin earlyoom
+	dobin earlyoom
 
-  use man && doman earlyoom.1
+	use man && doman earlyoom.1
 
-  insinto /etc/default
-  newins earlyoom.default earlyoom
+	insinto /etc/default
+	newins earlyoom.default earlyoom
 
-  dodir /etc/conf.d
-  dosym -r /etc/default/earlyoom /etc/conf.d/earlyoom
+	dodir /etc/conf.d
+	dosym -r /etc/default/earlyoom /etc/conf.d/earlyoom
 
-  newinitd "${FILESDIR}/${PN}-r1" ${PN}
-  systemd_dounit earlyoom.service
+	newinitd "${FILESDIR}/${PN}-r1" ${PN}
+	systemd_dounit earlyoom.service
 }

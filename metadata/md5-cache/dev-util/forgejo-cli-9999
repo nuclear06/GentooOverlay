@@ -1,6 +1,6 @@
 BDEPEND=virtual/pkgconfig || ( >=dev-lang/rust-bin-1.74.1:* >=dev-lang/rust-1.74.1:* ) >=dev-vcs/git-1.8.2.1[curl]
 DEFINED_PHASES=compile configure install setup test unpack
-DEPEND=dev-libs/openssl:= sys-libs/zlib
+DEPEND=dev-libs/openssl:= virtual/zlib
 DESCRIPTION=CLI tool for interacting with Forgejo
 EAPI=8
 HOMEPAGE=https://codeberg.org/forgejo-contrib/forgejo-cli
@@ -8,7 +8,7 @@ INHERIT=cargo git-r3
 IUSE=debug
 LICENSE=|| ( Apache-2.0 MIT )
 PROPERTIES=live
-RDEPEND=dev-libs/openssl:= sys-libs/zlib
+RDEPEND=dev-libs/openssl:= virtual/zlib
 SLOT=0
-_eclasses_=toolchain-funcs	8a2c298bde71ecf3f452dd9e67c94369	flag-o-matic	ed1eda86c8f746a2a75f7f9f7478f5f4	multiprocessing	1e32df7deee68372153dca65f4a7c21f	rust	0d1cc00e0e91a021b50b0491e361ad41	rust-toolchain	76468983281b0a7fc167ca224f84ecfd	cargo	7fa26aa78643f4b76bcc1985ec2cb49b	git-r3	875eb471682d3e1f18da124be97dcc81
-_md5_=96203d19d89c445392aa14c9b8ddfb88
+_eclasses_=toolchain-funcs	5195689ff6a73b0e789acfa09d4fbcb9	flag-o-matic	fd3558f73f6503093adee69adf41020d	multiprocessing	45d0620f25c2f063ad6276ecd9ed9399	rust	c5ae4c9b5eca97bd7fc77fede663873f	rust-toolchain	76468983281b0a7fc167ca224f84ecfd	cargo	53bab5a62cfc3526d8ed02c0a38a6033	git-r3	7b584b5dc33e3bc66ff5b9271bf41764
+_md5_=5bb2ae6061e1986c9da47d7d19c77c2d

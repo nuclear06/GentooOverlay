@@ -17,7 +17,7 @@ else
 	https://codeberg.org/LGFae/${PN}/archive/refs/tags/v${PV}.tar.gz -> ${P}.tar.gz
 	${CARGO_CRATE_URIS}
 	"
-	KEYWORDS="~amd64"
+	KEYWORDS=""
 fi
 
 S="${WORKDIR}/${PN}"

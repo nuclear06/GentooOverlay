@@ -5,4 +5,7 @@
 		<email>saniter.dev@outlook.com</email>
 		<name>saniter</name>
 	</maintainer>
+	<upstream>
+		<remote-id type="github">abba23/spotify-adblock</remote-id>
+	</upstream>
 </pkgmetadata>

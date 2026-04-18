@@ -5,7 +5,6 @@
 		<email>saniter.dev@outlook.com</email>
 		<name>saniter</name>
 	</maintainer>
-  <description>Typora is a simple and configurable document editor that provides excellent Markdown support.</description>
 	<use>
 		<flag name="tgreen">Apply TGreen patch</flag>
 		<flag name="wayland">Enable Wayland support to fix Fcitx input method issues</flag>

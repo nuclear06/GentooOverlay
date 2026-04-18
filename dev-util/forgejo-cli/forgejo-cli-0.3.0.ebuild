@@ -324,7 +324,7 @@ KEYWORDS="~amd64"
 RDEPEND="
 	dev-libs/openssl:=
 	dev-libs/oniguruma:=
-	sys-libs/zlib
+	virtual/zlib
 "
 DEPEND="${RDEPEND}"
 BDEPEND="
@@ -339,6 +339,6 @@ src_configure() {
 }
 
 src_install() {
-  cargo_src_install
-  einstalldocs
+	cargo_src_install
+	einstalldocs
 }

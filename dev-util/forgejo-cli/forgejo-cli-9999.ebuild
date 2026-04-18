@@ -15,7 +15,7 @@ KEYWORDS=""
 
 RDEPEND="
 	dev-libs/openssl:=
-	sys-libs/zlib
+	virtual/zlib
 "
 DEPEND="${RDEPEND}"
 BDEPEND="

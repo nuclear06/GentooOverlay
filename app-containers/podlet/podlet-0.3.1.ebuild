@@ -7,16 +7,12 @@ EAPI=8
 
 inherit cargo
 
-DESCRIPTION="Podlet generates Podman Quadlet files from a Podman command, compose file, or existing object."
+DESCRIPTION="Generate Podman Quadlet files from commands and compose files"
 HOMEPAGE="https://github.com/containers/podlet"
 SRC_URI="
 	https://github.com/containers/podlet/releases/download/v${PV}/source.tar.gz
 	https://github.com/nuclear06/gentoo-deps/releases/download/${P}/${P}-crates.tar.xz
 "
-DEPEND="
-"
-RDEPEND="${DEPEND}"
-
 LICENSE="MPL-2.0"
 SLOT="0"
 KEYWORDS="~amd64"

@@ -337,7 +337,6 @@ DEPEND="
 "
 RDEPEND="${DEPEND}"
 
-
 LICENSE="AGPL-3+"
 # Dependent crate licenses
 LICENSE+=" Apache-2.0 BSD ISC MIT MPL-2.0 Unicode-3.0"

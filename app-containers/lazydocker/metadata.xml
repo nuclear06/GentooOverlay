@@ -5,5 +5,8 @@
 		<email>saniter.dev@outlook.com</email>
 		<name>saniter</name>
 	</maintainer>
-	<description>A simple terminal UI for both docker and docker-compose, written in Go with the gocui library.</description>
+	<longdescription lang="en">A simple terminal UI for both docker and docker-compose, written in Go with the gocui library.</longdescription>
+	<upstream>
+		<remote-id type="github">jesseduffield/lazydocker</remote-id>
+	</upstream>
 </pkgmetadata>

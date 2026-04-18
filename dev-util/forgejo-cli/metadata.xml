@@ -5,5 +5,7 @@
 		<email>saniter.dev@outlook.com</email>
 		<name>saniter</name>
 	</maintainer>
-	<description>CLI application for interacting with Forgejo.</description>
+	<upstream>
+		<remote-id type="codeberg">forgejo-contrib/forgejo-cli</remote-id>
+	</upstream>
 </pkgmetadata>

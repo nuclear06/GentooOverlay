@@ -25,21 +25,21 @@ RDEPEND="
 BDEPEND="app-arch/unzip"
 
 src_install() {
-  local android_sdk_dir="/opt/android-sdk"
-  local target="${android_sdk_dir}/cmdline-tools/latest"
+	local android_sdk_dir="/opt/android-sdk"
+	local target="${android_sdk_dir}/cmdline-tools/latest"
 
-  insinto "${target}"
-  doins -r .
+	insinto "${target}"
+	doins -r .
 
-  fowners -R root:android "${android_sdk_dir}"
-  fperms -R 0775 "${android_sdk_dir}"
+	fowners -R root:android "${android_sdk_dir}"
+	fperms -R 0775 "${android_sdk_dir}"
 
-  newenvd - "80${PN}" <<-EOF
+	newenvd - "80${PN}" <<-EOF
 	PATH="${EPREFIX}${target}/bin"
 	ANDROID_HOME="${EPREFIX}${android_sdk_dir}"
 EOF
 
-  greadme_stdin <<-EOF
+	greadme_stdin <<-EOF
 	The Android SDK now uses its own manager for the development  environment.
 	Run 'sdkmanager' to download the full SDK, including some of the platform tools.
 	You must be in the android group to manage the development environment.
@@ -48,10 +48,10 @@ EOF
 }
 
 pkg_postinst() {
-  greadme_pkg_postinst
+	greadme_pkg_postinst
 
-  if has_version dev-util/android-sdk-update-manager; then
-    ewarn "This package (${P}) superseeds dev-util/android-sdk-update-manager"
-    ewarn "Consider uninstalling dev-util/android-sdk-update-manager"
-  fi
+	if has_version dev-util/android-sdk-update-manager; then
+		ewarn "This package (${P}) superseeds dev-util/android-sdk-update-manager"
+		ewarn "Consider uninstalling dev-util/android-sdk-update-manager"
+	fi
 }

@@ -11,7 +11,7 @@ EGIT_REPO_URI="https://github.com/abba23/spotify-adblock.git"
 
 LICENSE="GPL-3"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS=""
 
 src_unpack() {
 	git-r3_src_unpack
