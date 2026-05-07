@@ -9,5 +9,5 @@ KEYWORDS=~amd64 ~x86
 LICENSE=MIT
 SLOT=0
 SRC_URI=https://github.com/rfjakob/earlyoom/archive/refs/tags/v1.9.0.tar.gz -> earlyoom-1.9.0.tar.gz
-_eclasses_=toolchain-funcs	5195689ff6a73b0e789acfa09d4fbcb9	systemd	a964c0cbe818b5729da1dbfcee5be861
+_eclasses_=toolchain-funcs	58a918e3a42d0156f010dcfd43725be5	systemd	a964c0cbe818b5729da1dbfcee5be861
 _md5_=e455e1cca06e9d0995ff4aa53e175107
