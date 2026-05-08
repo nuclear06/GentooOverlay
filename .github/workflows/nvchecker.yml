@@ -93,11 +93,14 @@ jobs:
           cd .github/workflows/
           echo '${{ needs.eix.outputs.pkgs }}' > old_ver.json
           echo -e "[keys]\ngithub = \"${{ secrets.GITHUB_TOKEN }}\"" > keyfile.toml
-          nvchecker --file overlay.toml --keyfile keyfile.toml
+          # Run nvchecker and capture JSON logs to stderr
+          nvchecker --file overlay.toml --keyfile keyfile.toml --logger json 2> nvchecker.json || true
           echo "::endgroup::"
 
           echo "::group::nvcmp"
-          echo "nvcmp=$(nvcmp --file overlay.toml --json --newer | jq 'map({name, newver, oldver})' | jq -c .)" >> $GITHUB_OUTPUT
+          # Parse nvchecker.json for updated packages and extract name, version, old_version, and url
+          nvcmp=$(jq -s -c 'map(select(.event == "updated") | {name: .name, newver: .version, oldver: .old_version, release_url: .url})' nvchecker.json)
+          echo "nvcmp=$nvcmp" >> $GITHUB_OUTPUT
           echo "::endgroup::"
 
   issues-bumper:
@@ -127,6 +130,7 @@ jobs:
           name: ${{ matrix.name }}
           newver: ${{ matrix.newver }}
           oldver: ${{ matrix.oldver }}
+          release_url: ${{ matrix.release_url }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GENTOO_DEPS_REPOSITORY: ${{ vars.GENTOO_DEPS_REPOSITORY }}
           GENTOO_DEPS_GITHUB_TOKEN: ${{ secrets.GENTOO_DEPS_GITHUB_TOKEN }}
@@ -141,4 +145,6 @@ jobs:
             description=$(grep -E '^DESCRIPTION=' "$ebuild_file" | head -n 1 | sed -E 's/^DESCRIPTION=["'\'']?([^"'\'']*)["'\'']?/\1/')
             homepage=$(grep -E '^HOMEPAGE=' "$ebuild_file" | head -n 1 | sed -E 's/^HOMEPAGE=["'\'']?([^"'\'']*)["'\'']?/\1/')
           fi
-          go run . --file "${repo_dir}/.github/workflows/overlay.toml" --name "$name" --newver "$newver" --oldver "$oldver" --description "$description" --homepage "$homepage"
+          go run . --file "${repo_dir}/.github/workflows/overlay.toml" \
+                   --name "$name" --newver "$newver" --oldver "$oldver" \
+                   --description "$description" --homepage "$homepage" --release-url "$release_url"
