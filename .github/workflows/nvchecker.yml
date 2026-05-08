@@ -116,10 +116,10 @@ jobs:
         with:
           repository: "nuclear06/bumpbot"
 
-      - name: Checkout saniter
+      - name: Checkout overlay
         uses: actions/checkout@v6
         with:
-          path: "saniter"
+          path: "overlay"
 
       - name: update issues
         timeout-minutes: 1
@@ -131,4 +131,14 @@ jobs:
           GENTOO_DEPS_REPOSITORY: ${{ vars.GENTOO_DEPS_REPOSITORY }}
           GENTOO_DEPS_GITHUB_TOKEN: ${{ secrets.GENTOO_DEPS_GITHUB_TOKEN }}
         run: |
-          go run . --file saniter/.github/workflows/overlay.toml --name "$name" --newver "$newver" --oldver "$oldver"
+          repo_dir="overlay"
+          repo_name=$(cat "${repo_dir}/profiles/repo_name")
+          pkg_path="${repo_dir}/${name}"
+          ebuild_file=$(find "$pkg_path" -name "*.ebuild" | head -n 1)
+          description=""
+          homepage=""
+          if [[ -f "$ebuild_file" ]]; then
+            description=$(grep -E '^DESCRIPTION=' "$ebuild_file" | head -n 1 | sed -E 's/^DESCRIPTION=["'\'']?([^"'\'']*)["'\'']?/\1/')
+            homepage=$(grep -E '^HOMEPAGE=' "$ebuild_file" | head -n 1 | sed -E 's/^HOMEPAGE=["'\'']?([^"'\'']*)["'\'']?/\1/')
+          fi
+          go run . --file "${repo_dir}/.github/workflows/overlay.toml" --name "$name" --newver "$newver" --oldver "$oldver" --description "$description" --homepage "$homepage"
