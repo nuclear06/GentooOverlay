@@ -1,0 +1,12 @@
+BDEPEND=>=dev-vcs/git-1.8.2.1[curl]
+DEFINED_PHASES=compile configure install postinst test unpack
+DESCRIPTION=A preloader which hooks calls to sockets in dynamically linked programs
+EAPI=8
+HOMEPAGE=https://github.com/rofl0r/proxychains-ng
+INHERIT=git-r3 toolchain-funcs
+IUSE=test
+LICENSE=GPL-2+
+PROPERTIES=live
+SLOT=0
+_eclasses_=git-r3	2f8cdb10b033f92c3136aa6488a31c98	toolchain-funcs	58a918e3a42d0156f010dcfd43725be5
+_md5_=da5afad9a0199d09c2b37e8036704b5c
