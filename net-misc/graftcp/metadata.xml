@@ -2,10 +2,10 @@
 <!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
 	<maintainer type="person">
-		<email>saniter.dev@outlook.com</email>
-		<name>saniter</name>
+		<email>unlsycn@unlsycn.com</email>
+		<name>unlsycn</name>
 	</maintainer>
 	<upstream>
-		<remote-id type="github">rofl0r/proxychains-ng</remote-id>
+		<remote-id type="github">hmgle/graftcp</remote-id>
 	</upstream>
 </pkgmetadata>

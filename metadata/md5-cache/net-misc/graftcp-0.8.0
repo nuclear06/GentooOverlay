@@ -1,0 +1,12 @@
+BDEPEND=>=dev-lang/go-1.23 >=dev-lang/go-1.24.11:= app-arch/unzip
+DEFINED_PHASES=compile install prepare unpack
+DESCRIPTION=A tool for redirecting a given program's TCP traffic to SOCKS5 or HTTP proxy
+EAPI=8
+HOMEPAGE=https://github.com/hmgle/graftcp
+INHERIT=go-module toolchain-funcs
+KEYWORDS=~amd64 ~arm ~arm64 ~x86
+LICENSE=GPL-3+ Apache-2.0 BSD BSD-2 MIT ZLIB
+SLOT=0
+SRC_URI=https://github.com/hmgle/graftcp/archive/v0.8.0.tar.gz -> graftcp-0.8.0.tar.gz https://github.com/nuclear06/gentoo-deps/releases/download/graftcp-0.8.0/graftcp-0.8.0-deps.tar.xz
+_eclasses_=toolchain-funcs	58a918e3a42d0156f010dcfd43725be5	flag-o-matic	fd3558f73f6503093adee69adf41020d	multiprocessing	45d0620f25c2f063ad6276ecd9ed9399	sysroot	4c36abaf94ebd3ab32f8abea9a444121	go-env	fca4e820393c2eac25a944be8bdf6a3a	go-module	22cfabf3120ed3f7bcd8b4a7697fbfba
+_md5_=a722b0be9b9b97655684789827c3b7d0
