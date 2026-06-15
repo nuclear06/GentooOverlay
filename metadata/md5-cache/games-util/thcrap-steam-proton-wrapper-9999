@@ -1,0 +1,12 @@
+BDEPEND=>=dev-vcs/git-1.8.2.1[curl]
+DEFINED_PHASES=install postinst unpack
+DESCRIPTION=A wrapper script for launching Touhou games on Steam with thcrap
+EAPI=8
+HOMEPAGE=https://github.com/nerusuki/thcrap-steam-proton-wrapper
+INHERIT=git-r3
+LICENSE=Unlicense
+PROPERTIES=live
+RDEPEND=|| ( app-arch/libarchive app-arch/unzip ) gnome-extra/zenity net-misc/curl
+SLOT=0
+_eclasses_=git-r3	2f8cdb10b033f92c3136aa6488a31c98
+_md5_=c67397ca9aaabe5dce50a83ad15be79d
