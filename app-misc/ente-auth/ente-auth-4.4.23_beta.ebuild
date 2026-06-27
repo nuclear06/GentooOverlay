@@ -4,7 +4,7 @@ inherit desktop xdg
 
 DESCRIPTION="Ente's 2FA solution"
 HOMEPAGE="https://ente.io/blog/auth/"
-MY_PV="${PV/_/-}"
+MY_PV="${PV/_beta/}"
 APPIMAGE_URI="https://github.com/ente-io/ente/releases/download/auth-v${MY_PV}/ente-auth-v${MY_PV}-x86_64.AppImage"
 SRC_URI="
 	amd64? (
@@ -30,9 +30,9 @@ RDEPEND="
 "
 
 src_unpack() {
-	cp "${DISTDIR}/${P}-amd64.AppImage" "ente_auth.AppImage" || die "Can't copy downloaded file"
-	chmod +x "ente_auth.AppImage" || die "Can't chmod AppImage"
-	./ente_auth.AppImage --appimage-extract || die "Failed to extract appimage"
+	cp "${DISTDIR}/${P}-amd64.AppImage" "${P}-amd64.AppImage" || die "Can't copy downloaded file"
+	chmod +x "${P}-amd64.AppImage" || die "Can't chmod AppImage"
+	"./${P}-amd64.AppImage" --appimage-extract || die "Failed to extract appimage"
 }
 
 src_prepare() {
