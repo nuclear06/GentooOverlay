@@ -1,14 +1,13 @@
 EAPI=8
 
-inherit desktop xdg
+inherit optfeature unpacker xdg
 
 DESCRIPTION="Ente's 2FA solution"
 HOMEPAGE="https://ente.io/blog/auth/"
 MY_PV="${PV/_beta/}"
-APPIMAGE_URI="https://github.com/ente-io/ente/releases/download/auth-v${MY_PV}/ente-auth-v${MY_PV}-x86_64.AppImage"
 SRC_URI="
 	amd64? (
-		${APPIMAGE_URI} -> ${P}-amd64.AppImage
+		https://github.com/ente-io/ente/releases/download/auth-v${MY_PV}/ente-auth-v${MY_PV}-x86_64.deb -> ${P}-amd64.deb
 	)
 "
 S="${WORKDIR}"
@@ -26,47 +25,35 @@ RDEPEND="
 	dev-libs/openssl
 	media-libs/libepoxy
 	net-misc/curl
+	sys-auth/polkit
 	virtual/zlib
+	x11-misc/xdg-user-dirs
 "
 
-src_unpack() {
-	cp "${DISTDIR}/${P}-amd64.AppImage" "${P}-amd64.AppImage" || die "Can't copy downloaded file"
-	chmod +x "${P}-amd64.AppImage" || die "Can't chmod AppImage"
-	"./${P}-amd64.AppImage" --appimage-extract || die "Failed to extract appimage"
-}
-
 src_prepare() {
-	sed -i 's:^Exec=.*:Exec=/opt/bin/enteauth:' squashfs-root/enteauth.desktop || die
-	eapply_user
+	default
 }
 
 src_install() {
-	# skip appimage, directly run binary
-	# https://github.com/ente-io/ente/issues/6705
-	dodir /opt/enteauth
-	cp -a squashfs-root/{lib,data,enteauth} "${ED}/opt/enteauth/" || die "Failed to copy app resources"
+	# Copy all unpacked files from the deb archive
+	cp -a usr "${ED}/" || die "Failed to install files"
 
-	dodir /opt/bin
-	cat >>"${T}/enteauth" <<-EOF
-#!/bin/sh
-cd "/opt/enteauth" || exit 1
-exec ./enteauth "\$@"
-EOF
+	# Set correct permissions
+	chmod +x "${ED}/usr/share/enteauth/enteauth" || die
+	chmod +x "${ED}/usr/share/enteauth/lib"/*.so || die
 
-	exeinto /opt/bin
-	doexe "${T}/enteauth"
+	# Create executable symlink
+	dodir /usr/bin
+	dosym ../share/enteauth/enteauth /usr/bin/enteauth
 
-	domenu squashfs-root/enteauth.desktop
-
-	insinto /usr/share/icons
-	doins -r squashfs-root/usr/share/icons/hicolor
-
-	insinto /usr/share/pixmaps
-	doins squashfs-root/*.png
+	# Install polkit policy
+	insinto /usr/share/polkit-1/actions
+	doins usr/share/enteauth/data/flutter_assets/assets/polkit/com.ente.auth.policy
 }
 
 pkg_postinst() {
 	xdg_pkg_postinst
+	optfeature "importing files" gnome-extra/zenity
 }
 
 pkg_postrm() {
